@@ -54,30 +54,7 @@ void ReleaseArr(tArr* _pArr)
 	_pArr->iMaxCount = 0;
 }
 
-void Sort(tArr* _pArr)
+void Sort(tArr* _pArr, void(*SortFunc)(int*, int))
 {
-	// 데이터가 1개 이하면 정렬하지 않음
-	if (_pArr->iCount <= 1)
-		return;
-
-	while (true)
-	{
-		bool bFinish = true;
-
-		// 오름차순 정렬
-		for (int i = 0; i < (_pArr->iCount - 1); i++)
-		{
-			if (_pArr->pInt[i] > _pArr->pInt[i + 1])
-			{
-				int iTemp = _pArr->pInt[i];
-				_pArr->pInt[i] = _pArr->pInt[i + 1];
-				_pArr->pInt[i + 1] = iTemp;
-
-				bFinish = false;
-			}
-		}
-
-		if (bFinish) // 버블정렬 종료
-			break;
-	}
+	SortFunc(_pArr->pInt, _pArr->iCount);
 }
