@@ -11,7 +11,7 @@ int main()
 
 	PushBack(&list, 100);
 	PushBack(&list, 200);
-	PushBack(&list, 300);
+	PushFront(&list, 300);
 
 	tNode* pNode = list.pHeadNode;
 	for (int i = 0; i < list.iCount; i++)
