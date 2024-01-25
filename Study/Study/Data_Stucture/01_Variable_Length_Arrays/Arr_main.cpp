@@ -1,4 +1,5 @@
 /*----가변배열----*/
+
 #include <iostream>
 #include <time.h>
 

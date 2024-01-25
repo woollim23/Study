@@ -1,4 +1,5 @@
 #pragma once
+// - 연결리스트는 데이터를 받고 새로만든 노드에 데이터를 저장한 후, 마지막 노드에 이어 붙임
 
 // 개별 노드
 typedef struct _tagNode
