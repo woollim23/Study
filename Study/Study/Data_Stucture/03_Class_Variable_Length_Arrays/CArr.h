@@ -11,10 +11,10 @@ private:
 	int m_iMaxCount;
 
 public:
-	void Push_Back(const T& _Data); // 원형을 그대로 받기 위함
+	void Push_Back(const T& _Data); // 원형을 그대로 받기 위함, 주소 변경을 보호
 	void Resize(int _iResizeCount); // 재할당 함수, 공간 칸수를 받음
 	
-	T& operator[] (int idx); // 배열처럼 쓸수 있도록, 인덱스 받는 함수
+	T& operator[] (int idx); // 배열처럼 쓸 수 있도록, 인덱스 받는 함수
 
 public:
 	CArr();

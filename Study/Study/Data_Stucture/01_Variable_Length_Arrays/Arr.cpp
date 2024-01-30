@@ -4,7 +4,7 @@
 /*------배열 초기화 함수------*/
 void InitArr(tArr* _pArr)
 {
-	_pArr->pInt = (int*)malloc(sizeof(int) * 2);
+	_pArr->pInt = (int*)malloc(sizeof(int) * 2); // ? new 버전이면 어떨까 / 템플릿으로 바꿔보기
 	_pArr->iCount = 0;
 	_pArr->iMaxCount = 2;
 }
@@ -13,7 +13,7 @@ void InitArr(tArr* _pArr)
 void Reallocate(tArr* _pArr)
 {
 	// 1. 2배 더 큰 공간을 동적할당 함
-	int* pNew = (int*)malloc(_pArr->iMaxCount * 2 * sizeof(int));
+	int* pNew = (int*)malloc(_pArr->iMaxCount * 2 * sizeof(int)); // ? new 버전이면 어떨까 / 템플릿으로 바꿔보기
 
 	// 2. 기존 공간에 있던 데이터들을 새로 할당한 공간으로 복사
 	for (int i = 0; i < _pArr->iCount; i++)
