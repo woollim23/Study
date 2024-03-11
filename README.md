@@ -1,1 +1,1 @@
-Daily C++ Study Record
+Daily Code Study Record
