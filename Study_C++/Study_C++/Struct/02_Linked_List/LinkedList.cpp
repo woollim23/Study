@@ -66,4 +66,6 @@ void ReleaseList(tLinkedList* _pList)
 		free(pDeletNode);// 현재 노드는 삭제
 		pDeletNode = pNext; // 다음노드를 현재 노드로 변경
 	}
+
+	_pList->iCount = 0;
 }
