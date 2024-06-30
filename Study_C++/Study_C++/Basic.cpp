@@ -1,6 +1,27 @@
 #include <iostream>
 using namespace std;
 
+class parent
+{
+protected :
+	int iP;
+};
+
+class child : public parent
+{
+
+};
+
+class childchild : public child
+{
+public:
+	void test()
+	{
+		iP = 9;
+		cout << iP;
+	}
+};
+
 int main()
 {
 	// 포인터 변수 증감연산자 테스트
@@ -10,7 +31,10 @@ int main()
 
 	inum++;
 
-	cout << *inum;
+	cout << *inum << endl;
+
+	childchild cc;
+	cc.test();
 
 	return 0;
 }
