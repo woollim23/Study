@@ -5,12 +5,28 @@ using namespace std;
 
 int main()
 {
-	CArr<float> carr;
-	carr.Push_Back(10.1);
-	carr.Push_Back(20.23);
-	carr.Push_Back(30.6);
+	CArr<int> myvector;
 
-	cout << carr[2];
+	myvector.Push_Back(1);
+	myvector.Push_Back(2);
+	myvector.Push_Back(3);
+
+	CArr<int>::iterator myiter = myvector.begin();
+
+	for (; myiter != myvector.end(); ++myiter)
+	{
+		cout << *myiter << endl;
+	}
+
+	myiter = myvector.begin();
+
+	cout << *myiter << " ";
+
+	cout << *(++myiter) << " ";
+
+	cout << *(myiter++) << " ";
+
+	cout << *(myiter) << " ";
 	
 	return 0;
 }

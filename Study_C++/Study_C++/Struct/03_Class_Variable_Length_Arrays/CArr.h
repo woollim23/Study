@@ -1,6 +1,6 @@
 #pragma once
 #include <assert.h>
-/*-----클래스 버전 가변 배열-----*/
+/*-----클래스 버전 가변 배열(vector)-----*/
 
 template<typename T> // 클래스 템플릿으로 변환
 class CArr
@@ -18,9 +18,124 @@ public:
 	int capacity() { return m_iMaxCount; } // 최대 데이터 갯수
 	T& operator[] (int idx); // 배열처럼 쓸 수 있도록, 인덱스 받는 함수
 
+	class iterator; // 반복자 함수 전방선언
+	iterator begin(); // 시작을 가리키는 iterator 를 만들어서 반환해줌
+	iterator end();
+	iterator erase(const iterator& _iter);
+
 public:
 	CArr();
 	~CArr();
+
+	// 반복자(iterator)란 가변배열이 관리하는 데이터 요소를 가리키는 역할
+	// 이너클래스로 반복자 구현해보기
+	// CArr의 프라이빗 변수도 접근 가능 -> inner 클래스를 포함하고 있는 클래스의 private 멤버에 접근 가능
+	// 템플릿 적용 됨
+	class iterator
+	{
+	private:
+		CArr* m_pArr; // iterator 가 가리킨 데이터를 관리하는 가변배열 주소
+		T* m_pData; // 데이터들의 시작 주소
+		int m_iIdx; // 가리키는 데이터의 인덱스
+
+	public:
+		// 참조값을 돌려줌
+		T& operator * ()
+		{
+			// 가변배열이 알고 있는 주소와, iterator 가 알고있는 주소가 달라진 경우(공간 확장으로 주소가 달라진 경우)
+			// iterator 가 end iterator 인 경우
+			if ((m_pArr->m_pData != m_pData) || (-1 == m_iIdx))
+				assert(nullptr);
+
+			return m_pData[m_iIdx];
+		}
+
+		// ++ 전위 증가연산자 구현
+		// 중복 연산을 위해 반환값을 자기 자신으로
+		iterator& operator ++()
+		{
+			// end iterator 인 경우
+			// 데이터가 재할당 되어 주소값이 변경된 경우
+			if ((m_pArr->m_pData != m_pData) || (-1 == m_iIdx))
+				assert(nullptr); // 오류 상황
+
+			// iterator 가 마지막 데이터를 가리키고 있는 경우
+			// --> end iterator가 된다.
+			if (m_pArr->size() - 1 == m_iIdx)
+			{
+				m_iIdx = -1;
+			}
+			else
+			{
+				++m_iIdx;
+			}
+
+			return *this;
+		}
+
+		// ++ 후위 증가연산자 구현
+		// 반환형에 레퍼런스를 안줌. 원본 참조를 리턴하는 것이 아닌 또다른 복사본을 리턴하게 되는 것
+		iterator operator ++(int)
+		{
+			// 복사 생성자를 이용하여 원본 이터레이터가 지역 이터레이터로 복사됨
+			iterator copy_iter = *this;
+
+			// 위에서 구현한 전위연산자 활용
+			++(*this);
+
+			// 복사본을 리턴하여 증가이전 값을 반환
+			return copy_iter;
+		}
+
+		// -- 전위, 후위 직접 구현해보기
+		iterator operator --()
+		{
+
+			return *this;
+		}
+
+		// 비교연산자
+		bool operator == (const iterator& _otheriter)
+		{
+			// 데이터 주소와 인덱스 모두 일치해야 함
+			if ((m_pData == _otheriter.m_pData) && (m_iIdx == _otheriter.m_iIdx))
+			{
+				return true;
+			}
+			
+			return false;
+		}
+
+		bool operator != (const iterator& _otheriter)
+		{
+			/*
+			if ((m_pData == _otheriter.m_pData) && (m_iIdx == _otheriter.m_iIdx))
+			{
+				return false;
+			}
+
+			return true;
+			*/
+
+			return !(*this == _otheriter);
+		}
+		
+	public:
+		iterator()
+			: m_pArr(nullptr)
+			, m_pData(nullptr)
+			, m_iIdx(-1)
+		{}
+
+		iterator(CArr* _pArr, T* _pData, int _iIdx)
+			: m_pArr(_pArr)
+			, m_pData(_pData)
+			, m_iIdx(_iIdx)
+		{}
+
+		~iterator()
+		{}
+	};
 };
 
 /*-------- 초기화 함수 ---------*/
@@ -93,4 +208,40 @@ template<typename T>
 T& CArr<T>::operator[](int idx)
 {
 	return m_pData[idx];
+}
+
+// 시작을 가리키는 iterator 를 만들어서 반환해줌
+// 타입네임 적은 이유 -> 특정 타입이란 것을 알리기 위해
+template<typename T>
+typename CArr<T>::iterator CArr<T>::begin()
+{
+	/* 생성자로 만들게 되면서 생략됨
+	iterator iter;
+	// 만들어진 반복자가 본인이 관리할 데이터의 시작 주소와 똑같이 함
+	iter.m_pData = this->m_pData;
+	// 시작을 가리키므로 0
+	iter.m_iIdx = 0;
+
+	return iter;
+	*/
+
+	// 데이터가 없을떄의 반환, begin() == end()
+	if (0 == m_iCount)
+		return iterator(this, m_pData, -1);
+
+	// 변수명 부여할 필요도 없이 임시 객체 만드는 즉시 반환
+	return iterator(this, m_pData, 0);
+}
+
+template<typename T>
+typename CArr<T>::iterator CArr<T>::end()
+{
+	// 데이터가 없을떄의 반환, begin() == end()
+	return iterator(this, m_pData, -1);
+}
+
+template<typename T>
+typename CArr<T>::iterator CArr<T>::erase(const iterator& _iter)
+{
+	return iterator();
 }
