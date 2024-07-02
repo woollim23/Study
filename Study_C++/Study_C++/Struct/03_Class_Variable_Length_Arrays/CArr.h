@@ -6,7 +6,7 @@ template<typename T> // 클래스 템플릿으로 변환
 class CArr
 {
 private:
-	T* m_pData; // 저장할 데이터 T로 변환
+	T* m_pData;
 	int m_iCount;
 	int m_iMaxCount;
 
@@ -88,10 +88,32 @@ public:
 		}
 
 		// -- 전위, 후위 직접 구현해보기
-		iterator operator --()
+		// 전위
+		iterator& operator --()
 		{
+			// begin iterator 인 경우
+			// 데이터가 재할당 되어 주소값이 변경된 경우
+			// 저장된 데이터가 없는 경우
+			if ((this->m_iIdx == 0) || (m_pArr->m_pData != m_pData) || (m_pArr->size() == 0))
+				assert(nullptr); // 오류 상황
+			else
+			{
+				--m_iIdx;
+			}
 
 			return *this;
+		}
+
+		iterator operator --(int)
+		{
+			// 복사 생성자를 이용하여 원본 이터레이터가 지역 이터레이터로 복사됨
+			iterator copy_iter = *this;
+
+			// 위에서 구현한 전위연산자 활용
+			--(*this);
+
+			// 복사본을 리턴하여 증가이전 값을 반환
+			return copy_iter;
 		}
 
 		// 비교연산자
@@ -124,7 +146,7 @@ public:
 		iterator()
 			: m_pArr(nullptr)
 			, m_pData(nullptr)
-			, m_iIdx(-1)
+			, m_iIdx(-1) // 시작이자 end인 상태 (데이터가 비어있는 상태)
 		{}
 
 		iterator(CArr* _pArr, T* _pData, int _iIdx)
@@ -225,7 +247,7 @@ typename CArr<T>::iterator CArr<T>::begin()
 	return iter;
 	*/
 
-	// 데이터가 없을떄의 반환, begin() == end()
+	// 데이터가 없을때의 반환, begin() == end()
 	if (0 == m_iCount)
 		return iterator(this, m_pData, -1);
 
@@ -236,7 +258,7 @@ typename CArr<T>::iterator CArr<T>::begin()
 template<typename T>
 typename CArr<T>::iterator CArr<T>::end()
 {
-	// 데이터가 없을떄의 반환, begin() == end()
+	// 데이터 마지막 항목의 다음 것, 비어있음
 	return iterator(this, m_pData, -1);
 }
 

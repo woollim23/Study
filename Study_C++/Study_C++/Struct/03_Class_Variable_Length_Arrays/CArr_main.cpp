@@ -20,13 +20,12 @@ int main()
 
 	myiter = myvector.begin();
 
-	cout << *myiter << " ";
+	myiter++;
+	myiter++;
 
-	cout << *(++myiter) << " ";
+	cout << *(myiter--) << " ";
 
-	cout << *(myiter++) << " ";
+	cout << *(--myiter) << " ";
 
-	cout << *(myiter) << " ";
-	
 	return 0;
 }
