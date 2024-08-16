@@ -23,6 +23,31 @@ using namespace std;
 
 int main()
 {
-	
+	int ax[1001] = { 0, };
+	int ay[1001] = { 0, };
+
+	for (int i = 0; i < 3; i++)
+	{
+		int x, y;
+		cin >> x >> y;
+
+		ax[x]++;
+		ay[y]++;
+	}
+
+	for (int i = 0; i <= 1000; i++)
+	{
+		if (ax[i] % 2 == 1)
+		{
+			cout << i << " ";
+		}
+	}
+	for (int i = 0; i <= 1000; i++)
+	{
+		if (ay[i] % 2 == 1)
+		{
+			cout << i;
+		}
+	}
 	return 0;
 } 
