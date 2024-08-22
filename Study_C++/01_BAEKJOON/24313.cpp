@@ -36,12 +36,18 @@ using namespace std;
 
 int main()
 {
-    long long n;
-    cin >> n;
+    int a1, a0, c, n0;
 
-    cout << (n * (n - 1) * (n - 2)) / 6 << endl;
+    cin >> a1 >> a0;
+    cin >> c;
+    cin >> n0;
 
-    cout << 3 << endl;
+    if (c * n0 >= a1 * n0 + a0 && c >= a1) {
+        cout << 1 << endl;
+    }
+    else {
+        cout << 0 << endl;
+    }
 
     return 0;
 }
