@@ -36,3 +36,14 @@ struct Pos
 	int32 y = 0;
 	int32 x = 0;
 };
+
+enum Dir
+{
+	DIR_UP = 0,
+	DIR_LEFT = 1,
+	DIR_DOWN = 2,
+	DIR_RIGHT = 3,
+
+
+	DIR_COUNT = 4
+};
