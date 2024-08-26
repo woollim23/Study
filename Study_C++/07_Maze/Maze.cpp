@@ -1,9 +1,18 @@
 #include "pch.h"
 #include <iostream>
 #include "ConsoleHelper.h"
+#include "Board.h"
+#include "Player.h"
+
+Board board;
+Player player;
 
 int main()
 {
+	::srand(static_cast<unsigned>(time(nullptr)));
+	board.Init(25, &player);
+	player.Init(&board);
+
 	uint64 lastTick = 0;
 	while (true)
 	{
@@ -17,23 +26,6 @@ int main()
 		// 로직
 
 		// 렌더링
-		
-		// 최상단 좌측에 커서 배치
-		ConsoleHelper::SetCursorPosition(0, 0);
-		// 깜박이는 커서 끔
-		ConsoleHelper::ShowConsoleCursor(false);
-		// 커서 색깔 빨강으로
-		ConsoleHelper::SetCursorColor(ConsoleColor::RED);
-		
-		const char* TILE = "■";
-
-		for (int32 y = 0; y < 25; y++)
-		{
-			for (int32 x = 0; x < 25; x++)
-			{
-				cout << TILE;
-			}
-			cout << endl;
-		}
+		board.Render();
 	}
 }
