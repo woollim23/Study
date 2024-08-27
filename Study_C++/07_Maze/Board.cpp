@@ -3,7 +3,7 @@
 #include "ConsoleHelper.h"
 #include "Player.h"
 
-const char* TILE = "■ ";
+const char* TILE = "■";
 
 Board::Board()
 {
@@ -45,6 +45,7 @@ void Board::Render()
 // Binary Tree 미로 생성 알고리즘
 void Board::GenerateMap()
 {
+	// 첫 맵 작업, 일정한 간격을 두고 비어있음
 	for (int32 y = 0; y < _size; y++)
 	{
 		for (int32 x = 0; x < _size; x++)
@@ -67,21 +68,25 @@ void Board::GenerateMap()
 		{
 			if (x % 2 == 0 || y % 2 == 0)
 			{
+				// 벽 일때는 작업 스킵
 				continue;
 			}
 			if (x == _size - 2 && y == _size - 2)
 			{
+				// 맵 끝부분(출구)도 스킵
 				continue;
 			}
 
 			if (y == _size - 2)
 			{
+				// 맨 아래쪽에 왔을땐 우측으로만 길 뚫
 				_tile[y][x + 1] = TileType::EMPTY;
 				continue;
 			}
 
 			if (x == _size - 2)
 			{
+				// 맨 오른쪽에 왔을땐 아래로만 길 뚫
 				_tile[y + 1][x] = TileType::EMPTY;
 				continue;
 			}
@@ -89,10 +94,12 @@ void Board::GenerateMap()
 			const int32 randValue = ::rand() % 2;
 			if (randValue == 0)
 			{
+				// 우측으로 길 뚫
 				_tile[y][x + 1] = TileType::EMPTY;
 			}
 			else
 			{
+				// 아래로 길 뚫
 				_tile[y + 1][x] = TileType::EMPTY;
 			}
 		}
