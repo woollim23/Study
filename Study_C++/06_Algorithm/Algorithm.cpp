@@ -93,15 +93,81 @@ public:
 
 	}
 
-	Node(const T& value) : _prev(nullptr), _next(nulltpr), _data(value)
+	Node(const T& value) : _prev(nullptr), _next(nullptr), _data(value)
 	{
 
 	}
 
-private:
+public:
 	Node*	 _prev;
 	Node*	 _next;
 	T		 _data;
+};
+
+// 이터레이터
+template<typename T>
+class Iterator
+{
+public:
+	Iterator() : _node(nullptr)
+	{
+
+	}
+
+	Iterator(Node<T>* node) : _node(node)
+	{
+	
+	}
+
+	// ++it
+	Iterator& operator++()
+	{
+		_node = _node->_next;
+		return *this;
+	}
+
+	// it++
+	Iterator& operator++(int)
+	{
+		Iterator<T> temp = *this;
+		_node = _node->_next;
+		return temp;
+	}
+
+	// --it
+	Iterator& operator--()
+	{
+		_node = _node->_prev;
+		return *this;
+	}
+
+	// it--
+	Iterator& operator--(int)
+	{
+		Iterator<T> temp = *this;
+		_node = _node->_prev;
+		return temp;
+	}
+
+	// *it
+	T& operator*()
+	{
+		return _node->_data;
+	}
+
+	// 같은지 체크
+	bool operator==(const Iterator& other)
+	{
+		return _node == other._node;
+	}
+	// 다른지 체크
+	bool operator!=(const Iterator& other)
+	{
+		return _node != other._node;
+	}
+
+public:
+	Node<T>* _node;
 };
 
 template<typename T>
@@ -110,6 +176,7 @@ class List
 public:
 	List() : _size(0)
 	{
+		// 더미 헤드, 테일 생성
 		_head = new Node<T>();
 		_tail = new Node<T>();
 		_head->_next = _tail;
@@ -118,35 +185,83 @@ public:
 
 	~List()
 	{
+		while (_size > 0)
+			pop_back();
+
 		delete _head;
 		delete _tail;
 	}
 
 	void push_back(const T& value)
 	{
-
+		AddNode(_tail, value);
 	}
 
 	void pop_back()
 	{
-
+		RemoveNode(_tail->_prev);
 	}
 
 private:
+	// 내부에서 인서트 관리하는 함수
+	// [head] <-> [1] <-> [prevNode] <-> [before] <-> [tail]
+	// [head] <-> [1] <-> [prevNode] <-> "[newNode]" <-> [before] <-> [tail]
 	Node<T>* AddNode(Node<T>* before, const T& value)
 	{
 		Node<T>* newNode = new Node<T>(value);
 		Node<T>* prevNode = before->_prev;
 
+		// 이전 노드의 다음 노드에 새로운 노드를 연결
 		prevNode->_next = newNode;
+		// 새로운 노드의 앞은 당연히 이전 노드
 		newNode->_prev = prevNode;
 
+		// 새 노드의 다음을
 		newNode->_next = before;
 		before->_prev = newNode;
 
 		_size++;
 
 		return newNode;
+	}
+	
+	// 특정 노드 데이터 삭제하는 함수
+	// [head] <-> [prevNode] <-> "[node]" <-> [nextNode] <-> [tail]
+	// [head] <-> [prevNode] <-> [nextNode] <-> [tail]
+	Node<T>* RemoveNode(Node<T>* node)
+	{
+		Node<T>* prevNode = node->_prev;
+		Node<T>* nextNode = node->_next;
+
+		prevNode->_next = nextNode;
+		nextNode->_prev = prevNode;
+
+		delete node;
+
+		_size--;
+
+		return nextNode;
+	}
+
+	// 사이즈 반환 함수
+	int size() { return _size; }
+
+public:
+	using iterator = Iterator<T>;
+	iterator begin() { return iterator(_head->_next); }
+	iterator end() { return iterator(_tail); }
+
+	// it '앞에' 추가
+	iterator insert(iterator it, const T& value)
+	{
+		Node<T>* node = AddNode(it._node, value);
+		return iterator(node);
+	}
+
+	iterator erase(iterator it)
+	{
+		Node<T>* node = RemoveNode(it._node);
+		return iterator(node);
 	}
 
 public:
@@ -183,28 +298,27 @@ int main()
 	*/
 
 
-	list<int> li;
-	
-	list<int>::iterator eraselt;
+	List<int> li;
 
+	List<int>::iterator eraseIt;
+	// [ ] <-> [ ] <-> [ ] <-> [ ]  <-> [ ]  <-> [ ]
 	for (int i = 0; i < 10; i++)
 	{
 		if (i == 5)
 		{
-			eraselt = li.insert(li.end(), i);
+			eraseIt = li.insert(li.end(), i);
 		}
 		else
 		{
 			li.push_back(i);
 		}
 	}
-	// 리스트는 []를 이용한 임의 접근이 불가능
 
 	li.pop_back();
 
-	li.erase(eraselt);
+	li.erase(eraseIt);
 
-	for (list<int>::iterator it = li.begin(); it != li.end(); it++)
+	for (List<int>::iterator it = li.begin(); it != li.end(); it++)
 	{
 		cout << (*it) << endl;
 	}
