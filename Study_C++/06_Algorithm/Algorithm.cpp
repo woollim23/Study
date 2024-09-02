@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <stack>
 using namespace std;
 
+// 벡터
 template<typename T>
 class Vector
 {
@@ -84,6 +86,7 @@ private:
 	int _capacity = 0;
 };
 
+// 리스트 - 노드
 template<typename T>
 class Node
 {
@@ -170,6 +173,7 @@ public:
 	Node<T>* _node;
 };
 
+// 리스트
 template<typename T>
 class List
 {
@@ -270,9 +274,38 @@ public:
 	int			_size;
 
 };
+
+// 스택
+template<typename T, typename Container = vector<T>>
+class Stack
+{
+public:
+	void push(const T& value)
+	{
+		_container.push_back(value);
+	}
+
+	void pop()
+	{
+		_container.pop_back();
+	}
+
+	T& top()
+	{
+		return _container.back();
+	}
+
+	bool empty() { return _container.empty(); }
+	int size() { return _container.size(); }
+
+private:
+	Container _container;
+};
+
 int main()
 {
-	/* ------------- 벡터 ---------------
+	//  ------------- 벡터 ---------------
+	/*
 	vector<int> v;
 
 	// resize를 조정, capacity도 같이 10으로 증가
@@ -297,9 +330,9 @@ int main()
 
 	*/
 
-
+	//  ------------- 리스트 ---------------
+	/*
 	List<int> li;
-
 	List<int>::iterator eraseIt;
 	// [ ] <-> [ ] <-> [ ] <-> [ ]  <-> [ ]  <-> [ ]
 	for (int i = 0; i < 10; i++)
@@ -322,7 +355,26 @@ int main()
 	{
 		cout << (*it) << endl;
 	}
+	*/
 
+	//  ------------- 스택 ---------------
+	Stack<int, list<int>> s;
 
+	// 삽입
+	s.push(1);
+	s.push(2);
+	s.push(3);
 
+	// 데이터가 들어있나 체크
+	while (s.empty() == false)
+	{
+		// 최상위 원소
+		int data = s.top();
+		// 최상위 원소 삭제
+		s.pop();
+
+		cout << data << endl;
+	}
+
+	int size = s.size();
 } 
