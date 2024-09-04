@@ -9,10 +9,13 @@ using namespace std;
 template<typename T>
 class Vector
 {
+private:
+	T* _data = nullptr;
+	int _size = 0;
+	int _capacity = 0;
+
 public:
-	Vector()
-	{
-	}
+	Vector(){}
 
 	~Vector()
 	{
@@ -80,11 +83,6 @@ public:
 		 
 		_size = 0;
 	}
-
-private:
-	T* _data = nullptr;
-	int _size = 0;
-	int _capacity = 0;
 };
 
 // 리스트 - 노드
@@ -467,7 +465,7 @@ int main()
 	*/
 
 	//  -------------- 큐 ----------------
-	/**/
+	/*
 	ArrayQueue<int> q;
 
 	for (int i = 0; i < 100; i++)
@@ -483,4 +481,6 @@ int main()
 	}
 
 	int size = q.size();
+
+	*/
 } 

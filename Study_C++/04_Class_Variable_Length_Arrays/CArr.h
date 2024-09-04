@@ -164,7 +164,7 @@ public:
 // 선언한 멤버순으로 초기화 하는게 성능적으로 좋을 수도 있음
 template<typename T>
 CArr<T>::CArr()
-	:m_pData(nullptr)
+	: m_pData(nullptr)
 	, m_iCount(0)
 	, m_iMaxCount(2)
 {
