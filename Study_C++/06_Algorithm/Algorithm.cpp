@@ -177,6 +177,11 @@ template<typename T>
 class List
 {
 public:
+	Node<T>* _head;
+	Node<T>* _tail;
+	int			_size;
+
+public:
 	List() : _size(0)
 	{
 		// 더미 헤드, 테일 생성
@@ -266,12 +271,6 @@ public:
 		Node<T>* node = RemoveNode(it._node);
 		return iterator(node);
 	}
-
-public:
-	Node<T>*	_head;
-	Node<T>*	_tail;
-	int			_size;
-
 };
 
 // 스택

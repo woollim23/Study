@@ -73,6 +73,7 @@ void Player::Init(Board* board)
 		s.push(_path.back());
 	}
 
+	// 스택 꼭대기서부터 복사
 	vector<Pos> path;
 	while (s.empty() == false)
 	{
@@ -80,6 +81,7 @@ void Player::Init(Board* board)
 		s.pop();
 	}
 
+	// 역순으로 바꿔주기
 	std::reverse(path.begin(), path.end());
 	_path = path;
 }
