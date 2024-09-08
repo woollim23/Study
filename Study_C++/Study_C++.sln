@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06_Algorithm", "06_Algorith
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_Maze", "07_Maze\07_Maze.vcxproj", "{6153DE84-7C09-4B10-BC26-BE7F7D2BAB1D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08_Graph", "08_Graph\08_Graph.vcxproj", "{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{6153DE84-7C09-4B10-BC26-BE7F7D2BAB1D}.Release|x64.Build.0 = Release|x64
 		{6153DE84-7C09-4B10-BC26-BE7F7D2BAB1D}.Release|x86.ActiveCfg = Release|Win32
 		{6153DE84-7C09-4B10-BC26-BE7F7D2BAB1D}.Release|x86.Build.0 = Release|Win32
+		{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}.Debug|x64.ActiveCfg = Debug|x64
+		{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}.Debug|x64.Build.0 = Debug|x64
+		{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}.Debug|x86.ActiveCfg = Debug|Win32
+		{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}.Debug|x86.Build.0 = Debug|Win32
+		{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}.Release|x64.ActiveCfg = Release|x64
+		{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}.Release|x64.Build.0 = Release|x64
+		{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}.Release|x86.ActiveCfg = Release|Win32
+		{B622FE80-6E8A-4B4E-B158-3CBC576BE6BC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
