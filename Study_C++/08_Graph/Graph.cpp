@@ -14,6 +14,9 @@ void CreateGraph()
 {
 	vertices.resize(6); // 정점 6개
 	adjacent = vector<vector<int>>(6);
+
+	// 인접리스트
+	/*
 	adjacent[0].push_back(1);
 	adjacent[0].push_back(3);
 	adjacent[1].push_back(0);
@@ -21,7 +24,22 @@ void CreateGraph()
 	adjacent[1].push_back(3);
 	adjacent[3].push_back(4);
 	adjacent[5].push_back(4);
+	*/
+
+	// 인접 행렬
+	adjacent = vector<vector<int>>
+	{
+		{ 0, 1, 0, 1, 0, 0 },
+		{ 1, 0, 1, 1, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0 },
+	    { 0, 0, 0, 0, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 1, 0 }
+	};
+
+
 }
+
 
 //DFS
 void Dfs(int here)
@@ -31,9 +49,23 @@ void Dfs(int here)
 	cout << "Visited : " << here << endl;
 	// 인접 리스트 version
 	// 모든 인접 정점을 순회한다
+	/*
 	for (int i = 0; i < adjacent[here].size(); i++)
 	{
 		int there = adjacent[here][i];
+		if (visited[there] == false)
+			Dfs(there);
+	}
+	*/
+
+	// 인접행렬 version
+	// 모든 인접 정점을 순회한다
+	for (int there = 0; there < 6; there++)
+	{
+		if (adjacent[here][there] == 0)
+			continue;
+
+		// 아직 방문하지 않은 곳이 있으면 방문
 		if (visited[there] == false)
 			Dfs(there);
 	}
