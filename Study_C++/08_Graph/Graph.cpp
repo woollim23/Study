@@ -2,110 +2,57 @@
 #include <vector>
 using namespace std;
 
-void CreateGraph_1()
+struct Vertex
 {
-	struct Vertex
+
+};
+
+vector<Vertex> vertices; // 정점
+vector<vector<int>> adjacent; // 연결된 간선
+vector<bool> visited; // 방문한 목록
+void CreateGraph()
+{
+	vertices.resize(6); // 정점 6개
+	adjacent = vector<vector<int>>(6);
+	adjacent[0].push_back(1);
+	adjacent[0].push_back(3);
+	adjacent[1].push_back(0);
+	adjacent[1].push_back(2);
+	adjacent[1].push_back(3);
+	adjacent[3].push_back(4);
+	adjacent[5].push_back(4);
+}
+
+//DFS
+void Dfs(int here)
+{
+	// 방문
+	visited[here] = true;
+	cout << "Visited : " << here << endl;
+	// 인접 리스트 version
+	// 모든 인접 정점을 순회한다
+	for (int i = 0; i < adjacent[here].size(); i++)
 	{
-		vector<Vertex*> edges;
-	};
-
-	vector<Vertex> v;
-	v.resize(6);
-
-	v[0].edges.push_back(&v[1]);
-	v[0].edges.push_back(&v[3]);
-	v[1].edges.push_back(&v[0]);
-	v[1].edges.push_back(&v[2]);
-	v[1].edges.push_back(&v[3]);
-	v[3].edges.push_back(&v[4]);
-	v[5].edges.push_back(&v[4]);
-
-	// Q) 0번 -> 3번 정점이 연결되어 있나요?
-	bool connected = false;
-	for (Vertex* edge : v[0].edges)
-	{
-		if (edge == &v[3])
-		{
-			connected = true;
-			break;
-		}
+		int there = adjacent[here][i];
+		if (visited[there] == false)
+			Dfs(there);
 	}
 }
 
-void CreateGraph_2()
+void DfsAll()
 {
-	struct Vertex
+	visited = vector<bool>(6, false);
+	for (int i = 0; i < 6; i++)
 	{
-	};
-
-	vector<Vertex> v;
-	v.resize(6);
-
-	// 연결된 목록을 따로 관리
-	// adjacent[n] -> n번째 정점과 연결된 정점 목록
-	vector<vector<int>> adjacent(6);
-	adjacent[0] = { 1,3 };
-	adjacent[1] = { 0,2,3 };
-	adjacent[3] = { 4 };
-	adjacent[5] = { 4 };
-
-	// Q) 0번 -> 3번 정점이 연결되어 있나요?
-	bool connected = false;
-	for ( int vertex : adjacent[0] )
-	{
-		if (vertex == 3)
-		{
-			connected = true;
-			break;
-		}
+		if (visited[i] == false)
+			Dfs(i);
 	}
-
-	// STL 활용으로 찾기
-	vector<int>& adj = adjacent[0];
-	bool connected2 = (std::find(adj.begin(), adj.end(), 3) != adj.end());
-}
-
-void CreateGraph_3()
-{
-	struct Vertex
-	{
-	};
-
-	vector<Vertex> v;
-	v.resize(6);
-
-	// 연결된 목록을 따로 관리
-	// 
-	// [x][o][x][o][x][x]
-	// [o][x][o][o][x][x]
-	// [x][x][x][x][x][x]
-	// [x][x][x][x][o][x]
-	// [x][x][x][x][x][x]
-	// [x][x][x][x][o][x]
-
-	// 읽는 방법 : adjacent[from][to]
-	// 행렬을 이용한 그래프 표현(2차원 배열)
-	// 메모리 소모가 심하지만, 빠른 접근이 가능
-	// (간선이 많을때 유용)
-	vector<vector<bool>> adjacent(6, vector<bool>(6, false));
-	adjacent[0][1] = true;
-	adjacent[0][3] = true;
-	adjacent[1][0] = true;
-	adjacent[1][2] = true;
-	adjacent[1][3] = true;
-	adjacent[3][4] = true;
-	adjacent[5][4] = true;
-
-
-	// Q) 0번 -> 3번 정점이 연결되어 있나요?
-	bool connected = adjacent[0][3];
-
 }
 
 int main()
 {
-	CreateGraph_1();
-	CreateGraph_2();
-	CreateGraph_3();
-	return 0;
+	CreateGraph();
+	//visited = vector<bool>(6, false);
+	//Dfs(0);
+	DfsAll();
 }
