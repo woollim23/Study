@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 
 struct Vertex
@@ -9,14 +10,14 @@ struct Vertex
 
 vector<Vertex> vertices; // 정점
 vector<vector<int>> adjacent; // 연결된 간선
-vector<bool> visited; // 방문한 목록
+vector<bool> visited; // 방문 여부 목록 (깊이)
+vector<bool> discovered; // 발견 여부 목록 (너비)
 void CreateGraph()
 {
 	vertices.resize(6); // 정점 6개
 	adjacent = vector<vector<int>>(6);
 
-	// 인접리스트
-	/*
+	// 인접 리스트
 	adjacent[0].push_back(1);
 	adjacent[0].push_back(3);
 	adjacent[1].push_back(0);
@@ -24,8 +25,8 @@ void CreateGraph()
 	adjacent[1].push_back(3);
 	adjacent[3].push_back(4);
 	adjacent[5].push_back(4);
-	*/
-
+	
+	/*
 	// 인접 행렬
 	adjacent = vector<vector<int>>
 	{
@@ -36,12 +37,11 @@ void CreateGraph()
 		{ 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 1, 0 }
 	};
-
-
+	*/
 }
 
 
-//DFS
+// DFS (Depth First Search) 깊이 우선 탐색
 void Dfs(int here)
 {
 	// 방문
@@ -70,7 +70,7 @@ void Dfs(int here)
 			Dfs(there);
 	}
 }
-
+// DFS All
 void DfsAll()
 {
 	visited = vector<bool>(6, false);
@@ -81,10 +81,54 @@ void DfsAll()
 	}
 }
 
+
+// Bfs (Breadth First search) 너비 우선 탐색
+void Bfs(int here)
+{
+	// (1) 발견은 여기서
+	queue<int> q;
+	q.push(here);
+	discovered[here] = true;
+
+	// q[ 0  ]
+
+	while (q.empty() == false)
+	{
+		here = q.front(); // 다음 방문할 정점
+		q.pop();
+		// (2) 방문은 여기서
+		cout << "Visited : " << here << endl;
+
+		for (int there : adjacent[here])
+		{
+			if (discovered[there])
+			{
+				continue;
+			}
+
+			q.push(there);
+			discovered[there] = true;
+		}
+	}
+}
+
+void BfsAll()
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if (discovered[i] == false)
+			Bfs(i);
+	}
+}
+
 int main()
 {
 	CreateGraph();
 	//visited = vector<bool>(6, false);
 	//Dfs(0);
-	DfsAll();
+	//DfsAll();
+
+	discovered = vector<bool>(6, false);
+	//Bfs(0);
+	BfsAll();
 }
