@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ClassEx1
 {
-    internal class Program
+    internal class ClassEx1
     {
         static void Main(string[] args)
         {

@@ -111,7 +111,7 @@ namespace Class2_5
                     }
                     else
                     {
-                        Console.Write("▤ ");
+                        Console.Write("□ ");
                     }
                 }
                 Console.WriteLine();
