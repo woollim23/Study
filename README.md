@@ -1,22 +1,12 @@
 데일리 공부 기록용 깃허브 입니다. 언어 기초, 자료구조, 코딩테스트 등이 있습니다.
 
-## ■ **○ C#/프로그래머스/0**
+## ■ **C#/프로그래머스/0**
 - C# 프로그래머스 풀이 자동 업로드
 
-## ■ **○ Study_C#_Class**
+## ■ **Study_C#_Class**
 - 스파르타코딩 C# 인강 실습
 
-## ■ **○ Study_C++**
-- 01_BAEKJOON : 백준 풀이
-- 02_Variable_Length_Arrays : 가변배열
-- 03_Linked_List : 리스트
-- 04_Class_Variable_Length_Arrays : 클래스 가변배열
-- 05_Class_Template_List : 클래스 리스트
-- 06_Algorithm : 종합 알고리즘
-- 07_Maze : 미로생성
-- 08_Graph : 그래프
-
-## ■ **C#_Mini_Project**
+## ■ **Study_C#_Mini_Project**
 ### ○ TextRPG : 처음 만든 TextRPG 콘솔게임 입니다.
 ### ○ TextRPG_Reform : 객체지향적 구조로 개선하였습니다.
 ### ○ 구현 기능 요약
@@ -27,3 +17,13 @@
 - 상점 : 물건을 구매, 판매 할 수 있음
 - 휴식 : 골드를 지불하고 체력 회복
 - 던전 : 난이도 별로 보상이 다르게 지급
+
+## ■ **Study_C++**
+- 01_BAEKJOON : 백준 풀이
+- 02_Variable_Length_Arrays : 가변배열
+- 03_Linked_List : 리스트
+- 04_Class_Variable_Length_Arrays : 클래스 가변배열
+- 05_Class_Template_List : 클래스 리스트
+- 06_Algorithm : 종합 알고리즘
+- 07_Maze : 미로생성
+- 08_Graph : 그래프
