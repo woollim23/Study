@@ -4,9 +4,11 @@
 - C# 프로그래머스 풀이 자동 업로드
 
 ## ■ **Study_C#_Class**
+### ○ 개발도구 : Visual Studio
 - 스파르타코딩 C# 인강 실습
 
 ## ■ **Study_C#_Mini_Project**
+### ○ 개발도구 : Unity, C#
 ### ○ TextRPG : 처음 만든 TextRPG 콘솔게임 입니다.
 - 개발기간 : 2024-09-24 ~ 2024-09-25
 ### ○ TextRPG_Reform : 객체지향적 구조로 개선하였습니다.
@@ -22,6 +24,7 @@
 - 던전 : 난이도 별로 보상이 다르게 지급
 
 ## ■ **Study_C++**
+### ○ 개발도구 : Visual Studio
 - 01_BAEKJOON : 백준 풀이
 - 02_Variable_Length_Arrays : 가변배열
 - 03_Linked_List : 리스트
